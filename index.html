@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROMAR - Restaurante Multi Sabores</title>
+
+  <!-- ICONO DE LA PESTAÑA -->
+  <link rel="icon" type="image/png" href="logo.png?v=1">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #0b0b0b;
+      background-image: radial-gradient(circle at top,#300 0%,#0b0b0b 45%);
+      color: #fff7df;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    .topbar {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      font-size: clamp(2.8rem, 7vw, 5.6rem);
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #000;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff;
+      position: relative;
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .brand::after {
+      content: "🍔";
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(1.3rem, 3vw, 2.1rem);
+    }
+
+    .subtitle {
+      color: #000;
+      font-weight: 800;
+      letter-spacing: 4px;
+      margin-top: 12px;
+      text-transform: uppercase;
+      font-size: clamp(1rem, 2vw, 1.45rem);
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .panel {
+      position: relative;
+      min-height: 900px;
+      border: 5px solid #d2a327;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #151515 0%, #0d0d0d 100%);
+      box-shadow: 0 18px 50px rgba(0,0,0,.55);
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border: 2px solid rgba(247, 197, 60, 0.8);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+
+    .hero-header,
+    .menu-header {
+      background: linear-gradient(180deg, #da0c0c 0%, #ab0505 100%);
+      padding: 24px 20px 28px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-header::after,
+    .menu-header::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -18px;
+      height: 32px;
+      background: linear-gradient(135deg, transparent 0 35%, #111 36% 100%);
+      opacity: 0.9;
+    }
+
+    .panel-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #f5e8cc;
+      text-shadow: 0 4px 0 #7f0d0d;
+    }
+
+    .panel-subtitle {
+      color: #f7c53c;
+      font-weight: 800;
+      letter-spacing: 4px;
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    .hero-content {
+      padding: 52px 30px 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 720px;
+      position: relative;
+
+      flex: 1;
+    }
+
+    .speech {
+      border: 3px solid #efe3c4;
+      color: #f4c949;
+      border-radius: 999px;
+      padding: 16px 28px;
+      font-size: clamp(1.3rem, 2vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 26px;
+      background: rgba(0,0,0,0.35);
+      box-shadow: 0 0 0 4px rgba(0,0,0,0.12) inset;
+    }
+
+    .burger-drawings {
+      font-size: clamp(3rem, 6vw, 5rem);
+      text-align: center;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+      animation: bounce 1s infinite;
+    }
+
+    .burger {
+      font-size: clamp(7rem, 14vw, 12rem);
+      filter: drop-shadow(0 14px 18px rgba(0,0,0,0.45));
+      line-height: 1;
+      animation: bounce 2s infinite;
+    }
+
+    .burger.small {
+      font-size: clamp(5rem, 10vw, 8rem);
+      opacity: 0.95;
+    }
+
+    .chalk {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.13);
+      font-size: 4rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .chalk.a { top: 240px; left: 24px; }
+    .chalk.b { top: 330px; right: 26px; }
+    .chalk.c { bottom: 190px; left: 42px; }
+    .chalk.d { bottom: 140px; right: 28px; }
+
+    .menu-content {
+      padding: 46px 28px 30px;
+
+      flex: 1;
+    }
+
+    .section {
+      margin-bottom: 26px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 16px;
+      padding: 14px 14px 8px;
+    }
+
+    .section-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(90deg, #b90b0b, #ec2020);
+      color: #fff2d3;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,.25);
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 6px;
+      border-bottom: 1px dashed rgba(247, 197, 60, 0.34);
+      font-size: clamp(1rem, 1.4vw, 1.35rem);
+      font-weight: 700;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .name small {
+      display: block;
+      color: #d9c7a0;
+      font-size: 0.88em;
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    .price {
+      color: #ff3d2e;
+      white-space: nowrap;
+      font-weight: 900;
+    }
+
+    .footer-strip {
+      height: 34px;
+      background:
+        linear-gradient(90deg,
+          #f2dfbc 0 25px,
+          #c40f0f 25px 50px,
+          #f2dfbc 50px 75px,
+          #c40f0f 75px 100px);
+      background-size: 100px 100%;
+      border-top: 3px solid #d8aa2f;
+
+      margin-top: auto;
+    }
+
+    .note {
+      text-align: center;
+      margin-top: 20px;
+      color: #d2c39f;
+      font-size: 0.95rem;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff; }
+      50% { text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff; }
+      100% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff; }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    @media (max-width: 900px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        min-height: auto;
+      }
+
+      .hero-content {
+        min-height: 620px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">ROMAR</div>
+      <div class="subtitle">Restaurante Multi Sabores</div>
+    </header>
+
+    <main class="menu-grid">
+      <section class="panel">
+        <div class="hero-header">
+          <h1 class="panel-title">ROMAR</h1>
+          <p class="panel-subtitle">Restaurante Multi Sabores</p>
+        </div>
+
+        <div class="hero-content">
+          <div class="chalk a">🍟</div>
+          <div class="chalk b">🥤</div>
+          <div class="chalk c">🍗</div>
+          <div class="chalk d">🍔</div>
+
+          <div class="speech">¡Buen Sabor!</div>
+          <div class="burger-drawings">🍔🍟🥤🍗</div>
+          <div class="burger">🍔</div>
+        </div>
+        <div class="footer-strip"></div>
+      </section>
+
+      <section class="panel">
+        <div class="menu-header">
+          <h2 class="panel-title">ROMAR</h2>
+          <p class="panel-subtitle">Restaurante Multi Sabores</p>
+        </div>
+
+        <div class="menu-content">
+          <div class="section">
+            <div class="section-title">🍗 Broster</div>
+            <div class="item"><div class="name">Pecho Broster</div><div class="price">S/ 12</div></div>
+            <div class="item"><div class="name">Alita Broster</div><div class="price">S/ 9</div></div>
+            <div class="item"><div class="name">Pierna Broster</div><div class="price">S/ 9</div></div>
+            <div class="item"><div class="name">Encuentro Broster</div><div class="price">S/ 10</div></div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">🍔 Hamburguesas</div>
+            <div class="item">
+              <div class="name">Hamburguesa Clásica<small>Carne o pollo</small></div>
+              <div class="price">S/ 6</div>
+            </div>
+            <div class="item">
+              <div class="name">Hamburguesa Casera<small>Carne molida</small></div>
+              <div class="price">S/ 7</div>
+            </div>
+            <div class="item">
+              <div class="name">Hamburguesa Royal<small>Carne, queso y huevo</small></div>
+              <div class="price">S/ 9</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">🍟 Salchipapas</div>
+            <div class="item"><div class="name">Salchipapa Clásica</div><div class="price">S/ 7</div></div>
+            <div class="item">
+              <div class="name">Salchipapa Especial<small>Con queso y huevo</small></div>
+              <div class="price">S/ 9</div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-strip"></div>
+      </section>
+    </main>
+
+    <p class="note">Gracias por la visita .</p>
+  </div>
+</body>
+</html>
